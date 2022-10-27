@@ -14,9 +14,11 @@ class Sex(models.Model):
         verbose_name='Пол (рус)',
         max_length=10,
         null=False,
-        blank=False,
-        default=''
+        blank=False
     )
+
+    def __str__(self) -> str:
+        return self.title_rus
 
 
 class Account(AbstractUser):

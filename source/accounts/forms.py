@@ -11,12 +11,19 @@ class LoginForm(forms.Form):
 
 class CustomUserCreationForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', strip=False, required=True, widget=forms.PasswordInput)
-    password_confirm = forms.CharField(label='Подтвердите пароль', strip=False, required=True,
-                                       widget=forms.PasswordInput)
+    password_confirm = forms.CharField(
+        label='Подтвердите пароль', 
+        strip=False, 
+        required=True,
+        widget=forms.PasswordInput
+        )
 
     class Meta:
         model = get_user_model()
         fields = ('username', 'password', 'password_confirm', 'first_name', 'last_name', 'email', 'avatar', 'birthday', 'information', 'phone', 'sex')
+        widgets = {
+            'sex': forms.RadioSelect
+        }
 
     def clean(self):
         cleaned_data = super().clean()
