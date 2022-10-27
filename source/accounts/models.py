@@ -10,6 +10,13 @@ class Sex(models.Model):
         null=False,
         blank=False
     )
+    title_rus = models.CharField(
+        verbose_name='Пол (рус)',
+        max_length=10,
+        null=False,
+        blank=False,
+        default=''
+    )
 
 
 class Account(AbstractUser):
