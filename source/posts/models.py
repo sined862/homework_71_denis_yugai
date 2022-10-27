@@ -36,4 +36,11 @@ class Comment(models.Model):
         related_name='comments',
         on_delete=models.CASCADE
     )
+    text = models.CharField(
+        max_length=200,
+        verbose_name='Текст',
+        null=False,
+        blank=False,
+        default=''
+    )
     

@@ -3,16 +3,17 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <form action="" method="POST">
-        <div class="form">
-            {% csrf_token %}
+    <p class="pt-5">
+        <form action="" method="POST">
+            <div class="form">
+                {% csrf_token %}
 
-            {% bootstrap_form form %}
+                {% bootstrap_form form %}
 
-            {% bootstrap_button button_type="submit" content='Войти' %}
-        </div>
-    </form>
-
+                {% bootstrap_button button_type="submit" content='Войти' %}
+            </div>
+        </form>
+    </p>
 {% endblock %}
 
 

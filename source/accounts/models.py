@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
 from accounts.managers import UserManager
 
 class Sex(models.Model):
@@ -54,10 +53,12 @@ class Account(AbstractUser):
         blank=True,
         null=True
     )
-
-    liked_posts = models.ManyToManyField(verbose_name='Понравившиеся публикации', to='posts.Post', related_name='user_likes')
-    subscriptions = models.ManyToManyField(verbose_name='Подписки', to='accounts.Account', related_name='subscribers')
+    # liked_posts = models.ManyToManyField(verbose_name='Понравившиеся публикации', to='posts.Post', related_name='user_likes', null=True, blank=True)
+    # subscriptions = models.ManyToManyField(verbose_name='Подписки', to='accounts.Account', related_name='subscribers', null=True, blank=True)
     # commented_posts = models.ManyToManyField('Прокомментированные публикации', to='posts.Post', related_name='user_comments')
+
+    def __str__(self):
+        return self.email
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
