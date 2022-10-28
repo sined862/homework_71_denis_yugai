@@ -1,0 +1,16 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+    Post create
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="mt-5 col-lg-9 mx-auto">
+        <h2 class="m-3">Создание новой публикации: </h2>
+        <form class="m-3" action="{% url 'post_add' %}" method="POST" enctype="multipart/form-data">
+            {% include 'partial/post_form.html' with button_text='Создать' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
