@@ -1,0 +1,24 @@
+﻿{% extends 'base.html' %}
+
+{% block menu %}
+<ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
+    <li class="nav-item">
+        <form class="d-flex mt-2" role="search" action="{% url 'search' %}" method="GET">
+            {% include 'partial/search_form.html' %}
+        </form>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="my-5">
+            <h2 class="text-center mt-2">Результаты поиска:</h2>
+            <div class="list-group mt-5">
+                {% for account in accounts %}
+                <a href="{% url 'account' account.pk %}" class="list-group-item list-group-item-action p-3"><h5>{{ account.username }} {{ account.first_name }} {{ account.email }}</h5></a>
+                {% endfor %}
+              </div>
+        </div>
+    </div>
+{% endblock %}

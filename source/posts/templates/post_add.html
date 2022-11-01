@@ -4,6 +4,16 @@
     Post create
 {% endblock %}
 
+{% block menu %}
+<ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
+    <li class="nav-item">
+        <form class="d-flex mt-2" role="search" action="{% url 'search' %}" method="GET">
+            {% include 'partial/search_form.html' %}
+        </form>
+    </li>
+</ul>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="mt-5 col-lg-9 mx-auto">

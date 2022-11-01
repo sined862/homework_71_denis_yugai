@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 
 {% block title %}Пользователь{% endblock %}
 
@@ -11,7 +11,6 @@
     </li>
 </ul>
 {% endblock %}
-
 
 {% block content %}
 <style>
@@ -32,7 +31,7 @@
         </div>
         <div class="mt-5 pt-5 text-center">
             <h5>Публикации</h5>
-            <h3>0</h3>
+            <h3>{{ count }}</h3>
         </div>
         <div class="mt-5 pt-5 text-center">
             <h5>Подписчики</h5>
@@ -47,30 +46,9 @@
             <p>{{ user_obj.get_full_name }}</p>
         </div>
         <div class="mt-2 text-center">
-            <h6>Электронная почта</h6>
-            <p>{{ user_obj.email }}</p>
-        </div>
-        <div class="mt-2 text-center">
-            <h6>Телефон</h6>
-            <p>{{ user_obj.phone|default_if_none:"н/у" }}</p>
-        </div>
-        <div class="mt-2 text-center">
-            <h6>Пол</h6>
-            <p>{{ user_obj.sex }}</p>
+            <h6><a href="">Подписаться</a></h6>
         </div>
     </div>
-
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 mt-2">
-        <div class="text-center">
-            <a href="{% url 'post_add' %}" class="btn btn-success">Добавить публикацию</a>
-        </div>
-        <div class="text-left">
-            <a href="" class="btn btn-dark me-2">Редактировать профиль</a>
-            <a href="" class="btn btn-dark me-2">Сменить пароль</a>
-            <a href="{% url 'logout' %}" class="btn btn-dark">Выйти из профиля</a>
-        </div>
-    </div>
-
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-5 text-center">
         {% for post in posts %}
         <div class="my-2">
@@ -80,11 +58,4 @@
         </div>
         {%  endfor %}
     </div>
-    {{ posts }}
-
-
-
-
-  
-
 {% endblock %}

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         .img_nb {
-            width: 40%;
+            width: 80px;
             border-radius: 50%
         }
     </style>
@@ -23,24 +23,16 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="{% url 'index' %}">Instagram</a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <form class="d-flex mt-2" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Найти пользователя" aria-label="Search">
-                        <button class="btn btn-outline-dark" type="submit">Найти</button>
-                    </form>
-                </li>
-            </ul>
+            {% block menu %}
+            {% endblock %}
             {% if user.is_authenticated %}
             <h5 class="me-3">{{ user.username }}</h5>
             <a href="{% url 'profile' user.pk %}"><img class="img_nb" src="{{ user.avatar.url }}" alt="User"></a>
             {% else %}
             <a href="{% url 'register' %}">регистрация</a> | <a href="{% url 'login' %}">вход</a> 
             {% endif %}
-            {% block menu %}
-            {% endblock %}
           </div>
         </div>
       </nav>

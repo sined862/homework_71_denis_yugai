@@ -1,8 +1,79 @@
 ﻿{% extends 'base.html' %}
 
-<div class="row">
-    <div>
-        <img src="{{ post.image.url }}" alt="">
-        <p>{{ post.description }}</p>
+{% block menu %}
+<ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
+    <li class="nav-item">
+        <form class="d-flex mt-2" role="search" action="{% url 'search' %}" method="GET">
+            {% include 'partial/search_form.html' %}
+        </form>
+    </li>
+</ul>
+{% endblock %}
+
+
+{% block content %}
+<style>
+    img {
+        width: 80%
+    }
+</style>
+<div class="row mt-5">
+    <div class="mt-5">
+        <p class="text-center">
+            <img src="{{ post.image.url }}" alt="">
+        </p> 
+        {{ like_or_not }}
+        {% if like_or_not %}
+        <a href="{% url 'like' post.pk %}">Разлайкнуть</a>
+        {% else %}
+        <a href="{% url 'like' post.pk %}">Лайкнуть</a>
+        {% endif %}
+        <p><strong>{{ account }}</strong> {{ post.description }}</p>
+        <p>
+            <strong>Нравится {{ count_likes }}</strong>
+        </p>
+        <p>
+            <h3>Коментарии:</h3>
+        </p>
+        <p>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Написать комментарий
+                </button>
+              <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить комментарий</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form class="m-3" action="" method="POST">
+                            <div class="modal-body">                               
+                                    {% include 'partial/comment_form.html' %}
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary">Опубликовать</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+        </p>
+        {% for comment in post.comments.all %}
+        <div class="card my-2">
+            <div class="card-body">
+                <p class="pt-2">
+                    <strong>{{ comment.author }}</strong> {{ comment.text }} 
+                </p>
+                {% if comment.author == user %}
+                <p>редактировать | удалить</p>
+                {% endif %}             
+            </div>
+        </div>
+        
+        {% endfor %}
     </div>
 </div>
+
+{% endblock %}

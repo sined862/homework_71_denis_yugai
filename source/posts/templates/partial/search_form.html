@@ -1,0 +1,7 @@
+﻿    
+    
+    {{ search_form.search }}
+    <button class="btn btn-outline-dark" type="submit">Найти</button>
+    {% for error in form.search_form.errors %}
+    <p class="form-error">{{ error }}</p>
+    {% endfor %}

@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, View
 from accounts.forms import LoginForm, CustomUserCreationForm, UserChangeForm
+from posts.forms import SearchForm
 from posts.views import Post
 
 
@@ -66,7 +67,9 @@ class ProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         author = self.object
+        form = SearchForm()
         context['posts'] = Post.objects.filter(author=author)
+        context['search_form'] = form
         return context
 
     # def get_context_data(self, **kwargs):
