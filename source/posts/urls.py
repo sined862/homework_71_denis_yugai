@@ -1,5 +1,5 @@
 ﻿from django.urls import path
-from posts.views import IndexView, PostAddView, PostDetail, AccountsListView, AccountDetailView
+from posts.views import IndexView, PostAddView, PostDetail, AccountsListView, AccountDetailView, SubscribeView
 from posts.views import LikeView
 
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('posts/post/comment', PostDetail.as_view(), name='comment_add'),
     path('search/', AccountsListView.as_view(), name='search'),
     path('accounts/account/<int:pk>', AccountDetailView.as_view(), name='account'),
+    path('accounts/account/subscribe/<int:pk>', SubscribeView.as_view(), name='subscribe'),
 ]

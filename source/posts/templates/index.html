@@ -11,24 +11,23 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            asdasdasd<br>
-            {{ posts }}
-        </div>
+<style>
+    .rounded_img {
+    width: 15%;
+    border-radius: 50%
+}
+    .post_img {
+        width: 100%
+    }
+</style>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-5">
+        {% for post in posts %}
+        <div class="my-2">
+            <p class="mt-5 text-left"><span><img class="rounded_img" src="{{ post.author.avatar.url }}" alt="image"></span><strong class="ms-2">{{ post.author.username }}</strong></p>
+            <a href="{% url 'post' post.pk %}">
+                <img class="post_img" src="{{ post.image.url }}" alt="image">
+            </a>
+        </div>  
+        {%  endfor %}
     </div>
 {% endblock %}

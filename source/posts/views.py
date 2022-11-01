@@ -56,9 +56,15 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         form = SearchForm()
         context = super().get_context_data(**kwargs)
-        posts_without_account = Post.objects.exclude(author=self.request.user.id)
+        auth_user = Account.objects.get(pk=self.request.user.id)
+        subs = auth_user.subscriptions.all()
+        print(subs)
+        posts_without_account = Post.objects.filter(author__in=subs)
+        authors = Account.objects.filter(pk__in=subs)
+        print(authors)
         context['posts'] = posts_without_account
         context['search_form'] = form
+        context['authors'] = authors
         return context
 
 
@@ -132,6 +138,20 @@ class LikeView(View):
             return redirect('post', pk=kwargs['pk'])
 
 
+class SubscribeView(View):
+    def get(self, request, *args, **kwargs):
+        from_account = Account.objects.get(pk=self.request.user.id)
+        to_account = Account.objects.get(pk=kwargs['pk'])
+        print(f"Account - {from_account.subscriptions.filter(pk=kwargs['pk'])}")
+        if from_account.subscriptions.filter(pk=kwargs['pk']).exists():      
+            from_account.subscriptions.remove(to_account)
+            return redirect('account', pk=kwargs['pk'])
+        else:
+            print('Нет такой подписки')
+            from_account.subscriptions.add(to_account)
+            return redirect('account', pk=kwargs['pk'])
+
+
 class AccountDetailView(DeleteView):
     template_name = 'account.html'
     model = Account
@@ -140,10 +160,18 @@ class AccountDetailView(DeleteView):
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
         form = SearchForm()
+        auth_user = Account.objects.get(pk=self.request.user.id)
+        to_user = Account.objects.get(pk=self.object.id)
+        sub_or_not = auth_user.subscriptions.filter(pk=self.object.id)
+        print(f'This is - {sub_or_not}')
+        context['sub_or_not'] = sub_or_not 
         context['search_form'] = form
-        count = Post.objects.filter(author=self.object.id).count()
-        context['count'] = count
+        count_posts = Post.objects.filter(author=self.object.id).count()
+        context['count_posts'] = count_posts
         posts = Post.objects.filter(author=self.object.id)
+        count_subscriptions = to_user.subscriptions.all().count()
+        print(count_subscriptions)
+        context['count_subscriptions'] = count_subscriptions
         context['posts'] = posts
         return context
         

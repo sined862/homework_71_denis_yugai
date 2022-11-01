@@ -31,7 +31,7 @@
         </div>
         <div class="mt-5 pt-5 text-center">
             <h5>Публикации</h5>
-            <h3>{{ count }}</h3>
+            <h3>{{ count_posts }}</h3>
         </div>
         <div class="mt-5 pt-5 text-center">
             <h5>Подписчики</h5>
@@ -39,14 +39,18 @@
         </div>
         <div class="mt-5 pt-5 text-center">
             <h5>Подписки</h5>
-            <h3>0</h3>
+            <h3>{{ count_subscriptions }}</h3>
         </div>
         <div class="mt-2 text-center">
             <h6>Полное имя</h6>
             <p>{{ user_obj.get_full_name }}</p>
         </div>
         <div class="mt-2 text-center">
-            <h6><a href="">Подписаться</a></h6>
+            {% if sub_or_not %}
+            <h6><a href="{% url 'subscribe' user_obj.id %}">Отписаться</a></h6>
+            {% else %}
+            <h6><a href="{% url 'subscribe' user_obj.id %}">Подписаться</a></h6>
+            {% endif %}
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-5 text-center">

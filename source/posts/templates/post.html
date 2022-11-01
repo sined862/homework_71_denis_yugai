@@ -22,9 +22,8 @@
         <p class="text-center">
             <img src="{{ post.image.url }}" alt="">
         </p> 
-        {{ like_or_not }}
         {% if like_or_not %}
-        <a href="{% url 'like' post.pk %}">Разлайкнуть</a>
+        <a href="{% url 'like' post.pk %}">Убрать лайк</a>
         {% else %}
         <a href="{% url 'like' post.pk %}">Лайкнуть</a>
         {% endif %}
