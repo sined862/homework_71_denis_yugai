@@ -22,6 +22,9 @@ class Post(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return str(self.pk)
+
 
 class Comment(models.Model):
     author = models.ForeignKey(

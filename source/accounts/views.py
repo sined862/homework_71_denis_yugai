@@ -44,6 +44,8 @@ def logout_view(request):
 def is_autorization(request, *args, **kwargs):
     if not request.user.is_authenticated:
         return redirect('login')
+    else:
+        return redirect('index')
 
 
 class RegisterView(CreateView):
