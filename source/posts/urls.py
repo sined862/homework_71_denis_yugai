@@ -1,11 +1,12 @@
 ﻿from django.urls import path
 from posts.views import IndexView, PostAddView, PostDetail, AccountsListView, AccountDetailView, SubscribeView
 from posts.views import LikeView
+from accounts.views import is_autorization
 
 
 urlpatterns = [
     path('posts/', IndexView.as_view(), name='index'),
-    path('', IndexView.as_view(), name='index'),
+    path('', is_autorization, name='is_autorization'),
     path('posts/post_add', PostAddView.as_view(), name='post_add'),
     path('posts/post/<int:pk>', PostDetail.as_view(), name='post'),
     path('posts/post/like/<int:pk>', LikeView.as_view(), name='like'),

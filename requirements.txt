@@ -4,3 +4,4 @@ Pillow==9.2.0
 sqlparse==0.4.3
 tzdata==2022.5
 django-bootstrap5==22.1
+djangorestframework==3.14.0
